@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draw graph</title>
+    <link rel="stylesheet" href="css/foundation.min.css" />
+    <head profile="http://www.w3.org/2005/10/profile">
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+  </head>
+  <body>
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="panel">
+          <h3>Paste data into the text area, select type of graph and press &rsquo;Show&rsquo;</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 meduim-6 columns">
+        <h4>Input</h4>
+        <form>
+          <select id="graph_type">
+            <option value="graph">Graph</option>
+            <option value="digraph">Directed graph</option>
+          </select>
+          <div class="row">
+            <div class="large-8 columns">
+              <input id="first_line_checkbox" type="checkbox">
+              <label for="first_line_checkbox">
+                Ignore the first line
+                <abbr title="Ignore it if it doesn't contain any edge information">(*)</abbr>
+              </label>
+
+              <input id="use_labels_checkbox" type="checkbox" checked>
+              <label for="use_labels_checkbox">
+                Labels
+                <abbr title="Use the third column as a edge label">(*)</abbr>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <textarea id="data_area" placeholder="Here goes the graph data..." rows="12"></textarea>
+              <small id="error_message"></small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <a id="show_button" href="#" class="button expand radius">Draw</a>
+              <p>Or use combination <kbd>Ctrl</kbd> + <kbd>Enter</kbd></p>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="large-6 medium-6 columns">
+        <h4>Output</h4>
+        <img id="output" alt="Nothing to show"></img>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>
