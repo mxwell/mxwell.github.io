@@ -1,5 +1,6 @@
 /* More about syntax: http://www.graphviz.org/doc/info/lang.html */
-var parse = function(description) {
+var parse = function() {
+  var description = $("#data_area").val();
   if (typeof(description) == "undefined" ||
     description === "")
     return undefined;
@@ -55,6 +56,7 @@ var report_error = function(message) {
 
 var render_chart = function(graph) {
   if (graph !== previous_graph) {
+    history.pushState({query: "graph"}, "graphpage", "?q=" + graph);
     $("#output").attr("src", chart_url(graph));
     previous_graph = graph;
   }
@@ -62,12 +64,72 @@ var render_chart = function(graph) {
 
 var show = function() {
   clear_error();
-  var data = $("#data_area").val();
-  var graph = parse(data);
+  var graph = parse();
   if (graph)
     render_chart(graph);
   else
     report_error("unable to parse data");
+}
+
+var parse_url_query = function() {
+  var url = window.location.href;
+  var qmark = url.indexOf("?");
+  if (qmark < 0)
+    return "";
+  var args = decodeURI(url.substr(qmark + 1)).split("&");
+  for (var i in args) {
+    var pair = args[i].split("=");
+    if (pair.length >= 2 && pair[0] === "q")
+      return pair.slice(1).join("=");
+  }
+  return "";
+}
+
+var handle_query = function () {
+  var query = parse_url_query();
+  if (query.length > 0 && query[query.length - 1] === "}") {
+    var graph_type = "";
+    var data = "";
+    if (query.substr(0, 6) === "graph{") {
+      graph_type = "graph";
+      data = query.substr(6, query.length - 7);
+    } else if (query.substr(0, 8) === "digraph{") {
+      graph_type = "digraph";
+      data = query.substr(8, query.length - 9);
+    } else {
+      return;
+    }
+    $("#graph_type").val(graph_type);
+    var separator = graph_type === "graph" ? "--" : "->";
+    var edges = data.split(";");
+    var lines = [];
+    var pattern = "[label";
+    for (var i in edges) {
+      var e = edges[i];
+      if (e.length < 1)
+        continue;
+      var sep = e.indexOf(separator);
+      if (sep < 1)
+        continue;
+      var line = e.substr(0, sep);
+      var brace = e.indexOf("[", sep + 3);
+      if (brace < 0) {
+        line += " " + e.substr(sep + 2);
+        lines.push(line);
+        continue;
+      }
+      line += " " + e.substr(sep + 2, brace - sep - 2);
+      if (e.substr(e.length - 2) === "\"]"
+          && e.substr(brace + 1, 6) !== "label=\"") {
+        line += " " + e.substr(brace + 8, e.length - brace - 10)
+      }
+      lines.push(line);
+    }
+    if (lines.length > 0) {
+      $("#data_area").val(lines.join("\n"));
+      show();
+    }
+  }
 }
 
 $(document).ready(function() {
@@ -78,4 +140,5 @@ $(document).ready(function() {
     show();
     return false;
   });
+  handle_query();
 });
