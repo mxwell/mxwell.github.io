@@ -73,6 +73,9 @@ var show = function() {
 
 var parse_url_query = function() {
   var url = window.location.href;
+  var hash = url.indexOf("#");
+  if (hash >= 0)
+    url = url.substr(0, hash);
   var qmark = url.indexOf("?");
   if (qmark < 0)
     return "";
