@@ -137,11 +137,6 @@ var handle_query = function () {
 
 $(document).ready(function() {
   $("#show_button").click(show);
-  $(window).keypress(function(event) {
-    if (!(event.which == 13 && event.ctrlKey))
-      return true;
-    show();
-    return false;
-  });
+  shortcut.add("Ctrl+Enter", show);
   handle_query();
 });
