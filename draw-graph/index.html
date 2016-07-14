@@ -12,15 +12,14 @@
   </head>
   <body>
     <div class="row">
-      <div class="large-12 columns">
-        <div class="panel">
-          <h3>Paste data into the text area, select type of graph and press &rsquo;Draw&rsquo;</h3>
-        </div>
+      <div class="large-3 small-5 columns">
+        <h2 class="text-center subheader">Draw graph</h2>
+        <hr>
       </div>
     </div>
     <div class="row">
-      <div class="large-6 meduim-6 columns">
-        <h4>Input</h4>
+      <div class="large-6 meduim-6 small-6 columns">
+        <h4 class="subheader">Input</h4>
         <form>
           <select id="graph_type">
             <option value="graph">Graph</option>
@@ -31,13 +30,11 @@
               <input id="first_line_checkbox" type="checkbox">
               <label for="first_line_checkbox">
                 Ignore the first line
-                <abbr title="Ignore it if it doesn't contain any edge information">(*)</abbr>
               </label>
 
               <input id="use_labels_checkbox" type="checkbox" checked>
               <label for="use_labels_checkbox">
-                Labels
-                <abbr title="Use the third column as a edge label">(*)</abbr>
+                Edge labels
               </label>
             </div>
           </div>
@@ -49,8 +46,7 @@
           </div>
           <div class="row">
             <div class="large-12 columns">
-              <a id="show_button" href="#" class="button expand radius">Draw</a>
-              <p>Or use combination <kbd>Ctrl</kbd> + <kbd>Enter</kbd></p>
+              <a id="show_button" href="#" class="success hollow button expanded radius">Draw</a>
               <!-- Start of StatCounter Code -->
               <script type="text/javascript">
 //<![CDATA[
@@ -68,9 +64,14 @@
           </div>
         </form>
       </div>
-      <div class="large-6 medium-6 columns">
-        <h4>Output</h4>
+      <div class="large-6 medium-6 small-6 columns">
+        <h4 class="subheader">Output</h4>
         <img id="output" alt="Nothing to show"></img>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 small-centered columns">
+        <p class="subheader text-center">2015 - 2016</p>
       </div>
     </div>
     <script src="js/main.js"></script>
