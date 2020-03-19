@@ -2,3 +2,10 @@
 	float: right;
 	margin: 0;
 }
+
+footer {
+	position: fixed;
+	bottom: 0;
+	height: 2rem;
+	width: 100%;
+}
