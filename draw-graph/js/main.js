@@ -1,6 +1,10 @@
+var get_data_area = function () {
+  return $("#data_area");
+}
+
 /* More about syntax: http://www.graphviz.org/doc/info/lang.html */
 var parse = function() {
-  var description = $("#data_area").val();
+  var description = get_data_area().val();
   if (typeof(description) == "undefined" ||
     description === "")
     return undefined;
@@ -63,12 +67,14 @@ var render_chart = function(graph) {
 }
 
 var show = function() {
+  $("#show_button").attr("class", "success button expanded radius");
   clear_error();
   var graph = parse();
   if (graph)
     render_chart(graph);
   else
     report_error("unable to parse data");
+  $("#show_button").attr("class", "success hollow button expanded radius");
 }
 
 var parse_url_query = function() {
@@ -129,14 +135,22 @@ var handle_query = function () {
       lines.push(line);
     }
     if (lines.length > 0) {
-      $("#data_area").val(lines.join("\n"));
+      get_data_area().val(lines.join("\n"));
       show();
     }
   }
 }
 
+var on_copy_button_click = function () {
+  var data_area = get_data_area().get(0);
+  data_area.select();
+  data_area.setSelectionRange(0, 99999); /*For mobile devices*/
+  document.execCommand("copy");
+}
+
 $(document).ready(function() {
   $("#show_button").click(show);
+  $("#copy_button").click(on_copy_button_click);
   shortcut.add("Ctrl+Enter", show);
   handle_query();
 });
