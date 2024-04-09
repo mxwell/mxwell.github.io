@@ -37,7 +37,7 @@ var parse = function() {
 }
 
 /* Query example: https://chart.googleapis.com/chart?cht=gv&chl=digraph{1->2;2->3;1->3;3->4;1->5} */
-var render_service = "https://chart.googleapis.com/";
+var render_service = "http://draw.khairulin.com/";
 var previous_graph = "";
 
 var chart_url = function(graph) {
