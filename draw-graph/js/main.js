@@ -36,8 +36,8 @@ var parse = function() {
   return (directed ? "digraph" : "graph") + "{" + result.join(";") + "}";
 }
 
-/* Query example: https://chart.googleapis.com/chart?cht=gv&chl=digraph{1->2;2->3;1->3;3->4;1->5} */
-var render_service = "http://draw.khairulin.com/";
+/* Query example: https://draw.khairulin.com/chart?cht=gv&chl=digraph{1->2;2->3;1->3;3->4;1->5} */
+var render_service = "https://draw.khairulin.com/";
 var previous_graph = "";
 
 var chart_url = function(graph) {
